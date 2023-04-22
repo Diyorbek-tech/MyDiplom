@@ -42,12 +42,12 @@ class AsosiyHolatlar(StatesGroup):
     TaxrirlashniOrganish=State()
     RoyxatdanOtish=State()
 
-class GapTaxrirlashState(StatesGroup):
-    Marfologik=State()
-    Sintaktik=State()
-    Bekorqilish=State()
-    gapoldingi=State()
-    gapkeyingi=State()
+class Marfologik(StatesGroup):
+    Marfologik1=State()
+    Marfologik2=State()
+    Marfologik3=State()
+    Tegberish=State()
+
 
 
 
