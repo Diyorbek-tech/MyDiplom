@@ -28,6 +28,12 @@ async def btn1(message: Union[CallbackQuery, Message],**kwargs):
 
     elif isinstance(message,CallbackQuery):
         callback=message
+
+        if callback.message.reply_markup.inline_keyboard[0][0].text=="So`z teglandi tasdiqlash ✅":
+            print("bazaga yozildi\n"
+                  f"{callback.message.text.splitlines()[2]}\n"
+                  f"{kwargs.get('teg')}")
+
         markup1 =await menukey()
         await callback.message.edit_text(text=f"{callback.message.text.splitlines()[0]}\n\n<b>{callback.message.text.splitlines()[2]}</b>",reply_markup=markup1)
 
@@ -42,10 +48,8 @@ async def list_category(message: Union[CallbackQuery, Message],menu,**kwargs):
         callback = message
         gap=callback.message.text.splitlines()[0]
         soz=callback.message.text.splitlines()[2].split()[-1]
-        # print(soz,type(soz))
-        # print(gap,type(gap))
+
         index=gap.split().index(soz)+1 if soz in gap.split() else gap.split().index(gap.split()[-1])
-        # print(index)
         if menu == "➕":
             try:
                 index += 1
@@ -83,7 +87,7 @@ async def list_subcategory2(callback: CallbackQuery,menu, category, subcategory,
 
 async def list_subcategory3(callback: CallbackQuery,menu, category, subcategory,subcategory2, **kwargs):
     markup = await subcategories_keyboard3(menu,category, subcategory,subcategory2)
-    await callback.message.edit_text(text=f"{callback.message.text.splitlines()[0]}\n\n<b>{callback.message.text.splitlines()[2]}</b>\n\n<i>{menu}: {category}/{subcategory}/{subcategory2}</i>", reply_markup=markup)
+    await callback.message.edit_text(text=f"""{callback.message.text.splitlines()[0]}\n\n<b>{callback.message.text.splitlines()[0]}</b>\n\n<i>{menu}: {category}/{subcategory}/{subcategory2}</i>" """, reply_markup=markup)
 
     # await callback.message.edit_reply_markup(markup)
 
@@ -124,7 +128,10 @@ async def navigate(call: CallbackQuery, callback_data: dict,):
     # Mahsulot ID raqami (har doim ham bo'lavermaydi)
     item_id = callback_data.get("item_id")
     item_id2 = callback_data.get("item_id2")
-    print(callback_data)
+    teg = callback_data.get("teg")
+    # print(callback_data)
+    # print(call.message.reply_markup.inline_keyboard[0][0].text)
+    # print(call.message.text.splitlines()[2])
 
     # Har bir Level (qavatga) mos funksiyalarni yozib chiqamiz
 
@@ -143,6 +150,6 @@ async def navigate(call: CallbackQuery, callback_data: dict,):
 
     # Tanlangan funksiyani chaqiramiz va kerakli parametrlarni uzatamiz
     await current_level_function(
-        call,menu=menu, category=category, subcategory=subcategory,subcategory2=subcategory2, item_id=item_id,item_id2=item_id2
+        call,menu=menu, category=category, subcategory=subcategory,subcategory2=subcategory2, item_id=item_id,item_id2=item_id2,teg=teg
     )
 
